@@ -1,1 +1,1 @@
-autocmd  CursorMovedI  * nested :call hi#setVarColor()
+autocmd  CursorMovedI  * nested :call colorful#setVarColor()
