@@ -1,5 +1,5 @@
 
-function! colorful#setVarColor()
+function! colorful#setC()
 py3 << EOF
 import re
 import vim
