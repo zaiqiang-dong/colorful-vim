@@ -4,18 +4,21 @@ print("test")
 EOF
 endfunction
 
-function! stools#get_visual_selection()
-       let l=getline("'<")
-       let [line1,col1] = getpos("'<")[1:2]
-       let [line2,col2] = getpos("'>")[1:2]
-       echo l[col1 - 1: col2 - 1]
-endfunction
-
 function! stools#cal_hex_line()
+normal gv"xy
+let exp = @x
 py3 << EOF
-print("hex line")
+import vim
+exp = vim.eval("l:exp")
+exp = exp.replace(' ', '')
+add = exp.split('+')
+print(add)
+sum = int(add[0], 16) + int(add[1], 16)
+ret = vim.eval("l:exp").strip() + " = " + hex(sum)
+vim.command("let exp = '%s'"% ret)
 EOF
-call stools#get_visual_selection()
+let @x = exp
+normal gv"xp
 endfunction
 
 
