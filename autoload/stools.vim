@@ -10,10 +10,12 @@ let exp = @x
 py3 << EOF
 import vim
 exp = vim.eval("l:exp")
-exp = exp.replace(' ', '')
-add = exp.split('+')
+add = exp.split(' ')
 print(add)
-sum = int(add[0], 16) + int(add[1], 16)
+if add[1] == "+":
+    sum = int(add[0], 16) + int(add[2], 16)
+elif  add[1] == "-":
+    sum = int(add[0], 16) - int(add[2], 16)
 ret = vim.eval("l:exp").strip() + " = " + hex(sum)
 vim.command("let exp = '%s'"% ret)
 EOF
